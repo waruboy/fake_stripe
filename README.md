@@ -23,26 +23,20 @@ Remember to run `bundle install`.
 
 ### Stripe settings
 
-Set the `STRIPE_JS_HOST` constant in an initializer:
-
 ```ruby
 # config/initilialzers/stripe.rb
 Stripe.api_key = ENV['STRIPE_API_KEY']
-
-unless defined? STRIPE_JS_HOST
-  STRIPE_JS_HOST = 'https://js.stripe.com'
-end
 ```
 
 Include the Stripe JavaScript in your application template:
 
 ```rhtml
 # app/views/layouts/application.html.erb
-<%= javascript_include_tag "#{STRIPE_JS_HOST}/v1/" %>
+<%= javascript_include_tag "https://js.stripe.com/v1/" %>
 ```
 
-When the test suite runs `fake_stripe` will override the address for
-`STRIPE_JS_HOST` and serve up a local version of [Stripe.js](https://stripe.com/docs/stripe.js).
+When the test suite runs `fake_stripe` will intercept requests to the Stripe
+address and serve up a local version of [Stripe.js](https://stripe.com/docs/stripe.js).
 
 ### In Tests
 
